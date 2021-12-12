@@ -1,20 +1,15 @@
 package com.backend.technical.mappers;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.boot.test.context.SpringBootTest;
 
-@RunWith(MockitoJUnitRunner.class)
+@SpringBootTest
 public class DeviceMapperTest {
 
     @InjectMocks
     private DeviceMapper mapper;
 
-    @Before
-    public void setup() {
-    }
 
     @Test
     public void testToEntityMappingSuccess() {

@@ -1,5 +1,8 @@
 package com.backend.technical.exceptions;
 
+import com.backend.technical.errors.ErrorItem;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;
@@ -8,7 +11,7 @@ import org.springframework.http.HttpStatus;
 @Setter
 public class CustomErrorException extends RuntimeException  {
     private HttpStatus status = null;
-    private Object data = null;
+    private List<ErrorItem> errors = new ArrayList<>();
 
     public CustomErrorException() {
         super();
@@ -23,8 +26,8 @@ public class CustomErrorException extends RuntimeException  {
         this.status = status;
     }
 
-    public CustomErrorException(final HttpStatus status, final String message, final Object data) {
+    public CustomErrorException(final HttpStatus status, final String message, final List<ErrorItem> errors) {
         this(status, message);
-        this.data = data;
+        this.errors = errors;
     }
 }

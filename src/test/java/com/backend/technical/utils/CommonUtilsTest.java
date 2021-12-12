@@ -4,19 +4,14 @@ import java.time.Month;
 import java.util.Calendar;
 import java.util.Date;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@RunWith(MockitoJUnitRunner.class)
+@SpringBootTest
 public class CommonUtilsTest {
-
-    @InjectMocks
-    private CommonUtils commonUtils;
 
     @Test
     public void testParseDateToString_1() {

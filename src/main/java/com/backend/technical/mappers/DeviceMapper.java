@@ -9,13 +9,13 @@ import com.backend.technical.dtos.DeviceResponse;
 import com.backend.technical.dtos.Temperature;
 import com.backend.technical.utils.CommonUtils;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
 import static com.backend.technical.utils.CommonUtils.TIMESTAMP_PATTERN;
 import static com.backend.technical.utils.CommonUtils.resourceNotFoundException;
+import static com.backend.technical.utils.CommonUtils.now;
 
 @Component
 public class DeviceMapper {
@@ -64,7 +64,7 @@ public class DeviceMapper {
     private List<DeviceData> resolveDataListEntity(final DeviceDataInRequest deviceDataInRequest, final String deviceId) {
         final DeviceData deviceDataEntity = new DeviceData();
         deviceDataEntity.setHumidity(deviceDataInRequest.getHumidity());
-        deviceDataEntity.setTimestamp(new Date());
+        deviceDataEntity.setTimestamp(now());
         deviceDataEntity.setDeviceId(deviceId);
         if (deviceDataInRequest.getTemperature() != null) {
             deviceDataEntity.setTemperatureUnit(deviceDataInRequest.getTemperature().getUnit());

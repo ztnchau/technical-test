@@ -3,18 +3,16 @@ package com.backend.technical.validators;
 import com.backend.technical.dtos.DeviceDataInRequest;
 import com.backend.technical.dtos.DeviceRequest;
 import com.backend.technical.exceptions.CustomErrorException;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@SpringBootTest
 public class DeviceValidatorTest {
 
     private static final String DEVICE_ID = "deviceId";
@@ -26,21 +24,15 @@ public class DeviceValidatorTest {
     @Mock
     private DeviceRequest request;
 
-    @Before
-    public void setup() {
-        when(request.getDeviceId()).thenReturn(DEVICE_ID);
-        when(request.getData()).thenReturn(new DeviceDataInRequest());
-    }
+    @Mock
+    private DeviceDataInRequest deviceData;
 
     @Test
     public void testValidDeviceInputRequest() {
+        when(request.getDeviceId()).thenReturn(DEVICE_ID);
+        when(request.getData()).thenReturn(deviceData);
         assertDoesNotThrow(() -> deviceValidator.validateRequest(request));
 
-    }
-
-    @Test
-    public void testNullDeviceInputRequest() {
-        assertThrows(CustomErrorException.class, () -> deviceValidator.validateRequest(null));
     }
 
     @Test
@@ -57,6 +49,7 @@ public class DeviceValidatorTest {
 
     @Test
     public void testNullDeviceDataDeviceInputRequest() {
+        when(request.getDeviceId()).thenReturn(DEVICE_ID);
         when(request.getData()).thenReturn(null);
         assertThrows(CustomErrorException.class, () -> deviceValidator.validateRequest(request));
     }

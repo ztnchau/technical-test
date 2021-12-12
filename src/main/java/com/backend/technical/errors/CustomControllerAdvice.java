@@ -17,13 +17,8 @@ public class CustomControllerAdvice {
 
         final HttpStatus status = customErrorException.getStatus();
 
-        final StringWriter stringWriter = new StringWriter();
-        final PrintWriter printWriter = new PrintWriter(stringWriter);
-        customErrorException.printStackTrace(printWriter);
-        final String stackTrace = stringWriter.toString();
-
         final ErrorResponse error = new ErrorResponse(status, customErrorException.getMessage(),
-                customErrorException.getData(), stackTrace);
+                customErrorException.getErrors());
 
         return new ResponseEntity<>(error, status);
     }

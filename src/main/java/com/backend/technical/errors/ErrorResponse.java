@@ -3,6 +3,7 @@ package com.backend.technical.errors;
 import com.backend.technical.utils.CommonUtils;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;
@@ -15,12 +16,12 @@ public class ErrorResponse {
     private int code;
     private String status;
     private String message;
-    private Object data;
+    private List<ErrorItem> errors;
     private String stackTrace;
 
 
     public ErrorResponse() {
-        timestamp = new Date();
+        timestamp = CommonUtils.now();
     }
 
     public ErrorResponse(final HttpStatus httpStatus, final String message) {
@@ -35,9 +36,14 @@ public class ErrorResponse {
         this.stackTrace = stackTrace;
     }
 
-    public ErrorResponse(final HttpStatus httpStatus, final String message , final Object data, final String stackTrace) {
+    public ErrorResponse(final HttpStatus httpStatus, final String message , final List<ErrorItem> errors) {
+        this(httpStatus, message);
+        this.errors = errors;
+    }
+
+    public ErrorResponse(final HttpStatus httpStatus, final String message , final List<ErrorItem> errors, final String stackTrace) {
         this(httpStatus, message);
         this.stackTrace = stackTrace;
-        this.data = data;
+        this.errors = errors;
     }
 }
